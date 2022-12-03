@@ -7,36 +7,35 @@ export const inputDataLinesIntegers = (filename = "input.txt") => {
 export const getSolutionPart1 = () => {
     const fish = inputDataLinesIntegers();
     const days = 80;
-    for (let i = 0; i < days; i++) {
-        const length = fish.length;
-        for (let j = 0; j < length; j++) {
-            if (fish[j] == 0) {
-                fish[j] = 6;
-                fish.push(8)
-            } else {
-                fish[j] -= 1;
-            }
-        }
+    const intialCycles = [0, 0];
+    const cycles = [0, 0, 0, 0, 0, 0, 0];
+    var firstCycle = 0;
+    var firstInitialCycle = 0;
+    fish.forEach(f => cycles[f]++)
+    for (let day = 0; day < days; day++) {
+        firstCycle = cycles.shift();
+        firstInitialCycle = intialCycles.shift();
+        cycles.push(firstCycle + firstInitialCycle);
+        intialCycles.push(firstCycle);
     }
-    return fish.length;
+    return cycles.concat(intialCycles).reduce((a, b) => a + b, 0)
 };
 
 export const getSolutionPart2 = () => {
     const fish = inputDataLinesIntegers();
     const days = 256;
-    for (let i = 0; i < days; i++) {
-        console.log(fish)
-        fish.forEach((f,i) => { f-1
-            if (f == 0) {
-                fish.push(8)
-                fish[i] = 6;
-            } else {
-                fish[i]-=1;
-            }
-        }
-        );
+    const intialCycles = [0, 0];
+    const cycles = [0, 0, 0, 0, 0, 0, 0];
+    var firstCycle = 0;
+    var firstInitialCycle = 0;
+    fish.forEach(f => cycles[f]++)
+    for (let day = 0; day < days; day++) {
+        firstCycle = cycles.shift();
+        firstInitialCycle = intialCycles.shift();
+        cycles.push(firstCycle + firstInitialCycle);
+        intialCycles.push(firstCycle)
     }
-    return fish.length;
+    return cycles.concat(intialCycles).reduce((a, b) => a + b, 0)
 };
 
 console.log("Javascript")
